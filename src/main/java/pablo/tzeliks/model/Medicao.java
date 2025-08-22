@@ -8,12 +8,32 @@ import static java.time.format.DateTimeFormatter.ofLocalizedDate;
 
 public class Medicao {
 
+    private int id;
+    private Sensor sensor;
     private double valor;
     private LocalDateTime dataHora =  LocalDateTime.now();
 
-    Medicao(double valor, LocalDateTime dataHora) {
+    Medicao(int id, Sensor sensor, double valor, LocalDateTime dataHora) {
+        this.id = id;
+        this.sensor = sensor;
         this.valor = valor;
         this.dataHora = dataHora;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public double getValor() {

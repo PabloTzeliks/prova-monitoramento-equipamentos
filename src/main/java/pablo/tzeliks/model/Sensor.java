@@ -64,7 +64,5 @@ public abstract class Sensor {
         this.tipo = tipo;
     }
 
-    public abstract boolean verificarAlerta(Medicao medicao);
-
     public abstract String toString();
 }

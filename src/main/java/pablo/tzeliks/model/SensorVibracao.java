@@ -13,20 +13,6 @@ public class SensorVibracao extends Sensor {
     }
 
     @Override
-    public boolean verificarAlerta(Medicao medicao) throws AlertaException {
-
-        if (medicao == null) {
-            throw new AlertaException("Medição não existentente");
-        }
-
-        if (medicao.getValor() != 60) {
-            return true;
-        }
-
-        return false;
-    }
-
-    @Override
     public String toString() {
 
         return String.format("ID: " + getId()

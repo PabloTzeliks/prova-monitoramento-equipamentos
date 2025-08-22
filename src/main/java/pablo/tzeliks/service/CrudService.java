@@ -1,10 +1,12 @@
 package pablo.tzeliks.service;
 
 import org.mapstruct.factory.Mappers;
+import pablo.tzeliks.dto.MedicaoDTO;
 import pablo.tzeliks.dto.SensorDTO;
 import pablo.tzeliks.exceptions.ServiceException;
 import pablo.tzeliks.mapper.MedicaoMapper;
 import pablo.tzeliks.mapper.SensorMapper;
+import pablo.tzeliks.model.Medicao;
 import pablo.tzeliks.model.Sensor;
 import pablo.tzeliks.model.SensorTemperatura;
 import pablo.tzeliks.model.SensorVibracao;
@@ -14,7 +16,9 @@ import pablo.tzeliks.service.contracts.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SensorService implements CrudSensoresInterface<SensorDTO>, MedicoesInterface<SensorDTO> {
+// O nome ficou como CrudService porque se não iria ferir diretamente o princípio SRP, e pela complexidade do projeto decidi juntar o Crud para Sensores e Medições.
+
+public class CrudService implements SensoresInterface<SensorDTO>, MedicoesInterface<MedicaoDTO> {
 
     private final List<Sensor> listaSensores = new ArrayList<>();
     private int proximoId = 1;
@@ -23,19 +27,19 @@ public class SensorService implements CrudSensoresInterface<SensorDTO>, Medicoes
     private final MedicaoMapper mapperMedicao;
     private final SensorFactory factory;
 
-    public SensorService() {
+    public CrudService() {
         this.mapperSensor = Mappers.getMapper(SensorMapper.class);
         this.mapperMedicao = Mappers.getMapper(MedicaoMapper.class);
         this.factory = new SensorFactory();
     }
 
-    public SensorService(SensorMapper mapperSensor, MedicaoMapper mapperMedicao, SensorFactory factory) {
-        this.mapperSensor = Objects.requireNonNull(SensorMapper);
-        this.mapperMedicao = Objects.requireNonNull(MedicaoMapper);
+    public CrudService(SensorMapper mapperSensor, MedicaoMapper mapperMedicao, SensorFactory factory) {
+        this.mapperSensor = Objects.requireNonNull(mapperSensor);
+        this.mapperMedicao = Objects.requireNonNull(mapperMedicao);
         this.factory = Objects.requireNonNull(factory);
     }
 
-    // ---------- CRUD baseado em DTOs ----------
+    // ---------- CRUD Sensor baseado em DTOs ----------
 
     @Override
     public synchronized void cadastrarSensor(SensorDTO dto) {
@@ -75,11 +79,8 @@ public class SensorService implements CrudSensoresInterface<SensorDTO>, Medicoes
 
     @Override
     public List<SensorDTO> verificarSensoresCriticos() {
-        if (estoque.isEmpty()) throw new ServiceException("Lista vazia.");
-        return estoque.stream()
-                .filter(e -> e.getTipoEquipamento() == tipoEquipamento)
-                .map(this::toDto)
-                .collect(Collectors.toList());
+        if (listaSensores.isEmpty()) throw new ServiceException("Lista vazia.");
+        return listaSensores.stream().map(this::toDto).collect(Collectors.toList());
     }
 
     @Override
@@ -103,10 +104,14 @@ public class SensorService implements CrudSensoresInterface<SensorDTO>, Medicoes
 
     @Override
     public synchronized void removerPorId(int id) {
-        Equipamento e = acharPorIdEntidade(id);
-        if (e == null) throw new ServiceException("Equipamento não encontrado para id: " + id);
-        estoque.remove(e);
+        Sensor s = acharPorIdEntidade(id);
+        if (s == null) throw new ServiceException("Sensor não encontrado para id: " + id);
+        listaSensores.remove(s);
     }
+
+    // ---------- Métodos para Medições ----------
+
+
 
     // ---------- Helpers internos (entidades) ----------
 
@@ -124,19 +129,27 @@ public class SensorService implements CrudSensoresInterface<SensorDTO>, Medicoes
         if (sensor == null) return null;
 
         if (sensor instanceof SensorTemperatura) {
-            return mapper.toDTO((SensorTemperatura) sensor);
+            return mapperSensor.toDTO((SensorTemperatura) sensor);
         } else if (sensor instanceof SensorVibracao) {
-            return mapper.toDTO((SensorVibracao) sensor);
+            return mapperSensor.toDTO((SensorVibracao) sensor);
         } else {
             throw new ServiceException("Tipo de equipamento não suportado para mapeamento: " + sensor.getClass().getName());
         }
     }
 
-    // Validação de entidade (reaproveita lógica)
+    // Validação de entidade de Sensor
     private void validarSensor(Sensor sensor) {
         if (sensor == null) throw new ServiceException("Sensor nulo.");
         if (sensor.getNomeEquipamento() == null || sensor.getNomeEquipamento().isBlank()) throw new ServiceException("Nome inválido.");
         if (sensor.getCodigo() == null) throw new ServiceException("Código inválido.");
         if (sensor.getTipo() == null) throw new ServiceException("Tipo inválido.");
+    }
+
+    // Validação de entidade de Sensor
+    private void validarMedicao(Medicao medicao) {
+        if (medicao == null) throw new ServiceException("Medição nula.");
+        if (medicao.getSensor() == null) throw new ServiceException("Sensor nulo, sem referência.");
+        if (medicao.getValor() < 0) throw new ServiceException("Valor inválido.");
+        if (medicao.getDataHoraFormatada() == null || medicao.getDataHoraFormatada().isBlank()) throw new ServiceException("Data/hora inválida.");
     }
 }
