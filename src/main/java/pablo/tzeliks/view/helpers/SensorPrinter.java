@@ -1,8 +1,6 @@
 package pablo.tzeliks.view.helpers;
 
-import pablo.tzeliks.dto.EquipamentoDTO;
 import pablo.tzeliks.dto.SensorDTO;
-import pablo.tzeliks.model.enums.TipoEquipamento;
 
 import java.util.List;
 
@@ -18,19 +16,19 @@ public final class SensorPrinter {
         System.out.println();
         System.out.println("---- Sensores ----");
         for (SensorDTO dto : lista) {
-            imprimirEquipamento(dto);
+            imprimirSensores(dto);
             System.out.println("----------------------");
         }
     }
 
-    public static void imprimirEquipamento(SensorDTO dto) {
+    public static void imprimirSensores(SensorDTO dto) {
         if (dto == null) {
-            System.out.println("Equipamento nulo.");
+            System.out.println("Sensor nulo.");
             return;
         }
 
         System.out.println("ID: " + dto.id());
-        System.out.println("Nome: " + safeString(dto.nomeEquipamento()));
+        System.out.println("Nome: " + safeString(dto.nomeEquipamento());
         System.out.println("Código: " + safeString(dto.codigo()));
         System.out.println("Tipo: " + (dto.tipo() != null ? dto.tipo().name() : "N/A"));
     }
