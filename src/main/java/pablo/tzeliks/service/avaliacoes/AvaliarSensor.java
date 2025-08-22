@@ -12,12 +12,12 @@ import java.util.List;
 
 public class AvaliarSensor implements AlertaInterface {
 
-    private final int ATENCAO_TEMPERATURA = 70;
-    private final int CRITICO_TEMPERATURA = 80;
+    private final static int ATENCAO_TEMPERATURA = 70;
+    private final static int CRITICO_TEMPERATURA = 80;
 
-    private final int PADRAO_VIBRACAO = 60;
-    private final double DIFERENCA_ATENCAO_VIBRACAO = 0.5;
-    private final double DIFERENCA_CRITICO_VIBRACAO = 1.25;
+    private final static int PADRAO_VIBRACAO = 60;
+    private final static double DIFERENCA_ATENCAO_VIBRACAO = 0.5;
+    private final static double DIFERENCA_CRITICO_VIBRACAO = 1.25;
 
     @Override
     public List<Alerta> avaliar(Sensor sensor, Medicao medicao) throws AlertaException {

@@ -78,12 +78,6 @@ public class CrudService implements SensoresInterface<SensorDTO>, MedicoesInterf
     }
 
     @Override
-    public List<SensorDTO> verificarSensoresCriticos() {
-        if (listaSensores.isEmpty()) throw new ServiceException("Lista vazia.");
-        return listaSensores.stream().map(this::toDto).collect(Collectors.toList());
-    }
-
-    @Override
     public SensorDTO acharPorCodigo(Codigo codigo) {
         Sensor s = acharPorCodigoEntidade(codigo);
         return s == null ? null : toDto(s);

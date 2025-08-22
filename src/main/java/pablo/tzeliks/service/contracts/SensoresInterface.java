@@ -8,8 +8,6 @@ public interface SensoresInterface<T> {
 
     void cadastrarSensor(T t);
     List<T> listarSensores();
-    List<T> verificarSensoresCriticos();
-    List<T> listarSensoresCriticos();
     T acharPorCodigo(Codigo codigo);
     T acharPorId(int id);
     void removerPorCodigo(Codigo codigo);

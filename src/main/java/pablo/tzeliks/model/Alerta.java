@@ -20,6 +20,18 @@ public class Alerta {
         return new Alerta(s, m, nivel);
     }
 
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public Medicao getMedicao() {
+        return medicao;
+    }
+
+    public NivelAlerta getNivelAlerta() {
+        return nivelAlerta;
+    }
+
     @Override
     public String toString() {
         return String.format("Alerta %d" +
