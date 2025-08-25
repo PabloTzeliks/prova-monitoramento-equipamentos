@@ -36,6 +36,7 @@ public class InputHelper {
     }
 
     public static TipoSensor escolherEnum(Scanner scanner, String mensagem) {
+
         while (true) {
 
             System.out.println(mensagem);
@@ -59,9 +60,13 @@ public class InputHelper {
                 } else {
                     return null;
                 }
+
             } catch (NumberFormatException e) {
                 MessageHelper.erro("Valor inválido, tente novamente.");
             }
         }
+
+
+
     }
 }
