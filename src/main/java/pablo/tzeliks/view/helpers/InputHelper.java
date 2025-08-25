@@ -58,11 +58,11 @@ public class InputHelper {
 
                     return tipo;
                 } else {
-                    return null;
+                    MessageHelper.erro("Valor incorreto, tente novamente.");
                 }
 
             } catch (NumberFormatException e) {
-                MessageHelper.erro("Valor inválido, tente novamente.");
+                MessageHelper.erro("Erro ao inserir o Tipo de Sensor, observe: " + e.getMessage());
             }
         }
 

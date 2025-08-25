@@ -23,13 +23,13 @@ public class CadastroSensorView {
                 try {
                     codigo = new Codigo(codigoRaw);
                 } catch (Exception e) {
-                    MessageHelper.erro("Código inválido: " + e.getMessage() + ". Tente novamente.");
+                    MessageHelper.erro(e.getMessage() + ". Tente novamente.");
                 }
             }
 
-            String nomeEquipamento = InputHelper.lerString(scanner, "Digite o nome do equipamento: ");
+            String nomeEquipamento = InputHelper.lerString(scanner, "\nDigite o nome do Sensor: ");
 
-            TipoSensor tipo = InputHelper.escolherEnum(scanner, "Escolha o tipo de sensor: ");
+            TipoSensor tipo = InputHelper.escolherEnum(scanner, "\nEscolha o tipo de sensor: ");
             if (tipo == null) {
                 MessageHelper.info("O tipo do Sensor deve ser informado.");
                 return;
@@ -38,14 +38,14 @@ public class CadastroSensorView {
             SensorDTO dto = new SensorDTO(0, codigo, nomeEquipamento, tipo);
             service.cadastrarSensor(dto);
 
-            MessageHelper.sucesso("Sensor cadastrado com sucesso!");
+            MessageHelper.sucesso("\nSensor cadastrado com sucesso!");
 
             if (tipo == TipoSensor.SENSOR_TEMPERATURA) {
 
-                System.out.println("Tipo: " + tipo.name() + " | Limite de alerta: 80 Cº");
+                System.out.println("\nTipo: " + tipo.name() + " | Limite de alerta: 80 Cº");
             } else if (tipo == TipoSensor.SENSOR_VIBRACAO){
 
-                System.out.println("Tipo: " + tipo.name() + " | Limite de alerta: 60 Hz");
+                System.out.println("\nTipo: " + tipo.name() + " | Limite de alerta: 60 Hz");
             }
 
         } catch (Exception e) {

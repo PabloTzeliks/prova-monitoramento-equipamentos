@@ -29,7 +29,7 @@ public class ConsoleController {
             try {
                 switch (opcao) {
                     case 1:
-                        CadastroSensorView.executar(scanner, serviceFacade);
+                        CadastroSensorView.executar(scanner, service);
                         break;
 //                    case 2:
 //                        RemoverSensorView.executar(scanner, serviceFacade);
