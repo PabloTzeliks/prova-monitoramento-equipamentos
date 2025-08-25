@@ -3,7 +3,6 @@ package pablo.tzeliks.service;
 import org.mapstruct.factory.Mappers;
 import pablo.tzeliks.dto.SensorDTO;
 import pablo.tzeliks.exceptions.ServiceException;
-import pablo.tzeliks.mapper.MedicaoMapper;
 import pablo.tzeliks.mapper.SensorMapper;
 import pablo.tzeliks.model.Medicao;
 import pablo.tzeliks.model.Sensor;
@@ -68,17 +67,17 @@ public class SensorService implements SensoresInterface<SensorDTO> {
     }
 
     @Override
-    public SensorDTO acharPorCodigo(Codigo codigo) {
+    public Sensor acharPorCodigo(Codigo codigo) {
         Sensor s = acharPorCodigoEntidade(codigo);
-        return s == null ? null : toDto(s);
+        return s;
     }
 
     @Override
-    public SensorDTO acharPorId(int id) {
+    public Sensor acharPorId(int id) {
         Sensor s = acharPorIdEntidade(id);
-        return s == null ? null : toDto(s);
-    }
+        return s;
 
+    }
     @Override
     public synchronized void removerPorCodigo(Codigo codigo) {
         Sensor s = acharPorCodigoEntidade(codigo);
@@ -101,6 +100,7 @@ public class SensorService implements SensoresInterface<SensorDTO> {
     }
 
     private Sensor acharPorIdEntidade(int id) {
+        if (id <= 0) return null;
         return listaSensores.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
     }
 

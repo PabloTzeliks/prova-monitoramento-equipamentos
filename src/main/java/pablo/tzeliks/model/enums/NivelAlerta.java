@@ -1,8 +1,10 @@
 package pablo.tzeliks.model.enums;
 
+// Lógica para melhor implementação futura, podendo assim o sistema ter mais de um tipo de Alerta.
+
 public enum NivelAlerta {
 
-    ALERTA_ATENCAO("Atenção"),
+//    ALERTA_ATENCAO("Atenção"),
     ALERTA_CRITICO("Critico");
 
     String nome;

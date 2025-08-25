@@ -13,7 +13,7 @@ public class Medicao {
     private double valor;
     private LocalDateTime dataHora = LocalDateTime.now();
 
-    Medicao(int id, Sensor sensor, double valor, LocalDateTime dataHora) {
+    public Medicao(int id, Sensor sensor, double valor, LocalDateTime dataHora) {
         this.id = id;
         this.sensor = sensor;
         this.valor = valor;

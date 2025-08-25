@@ -1,8 +1,7 @@
 package pablo.tzeliks.view;
 
 import pablo.tzeliks.service.AlertaService;
-import pablo.tzeliks.service.CrudService;
-import pablo.tzeliks.service.EstoqueService;
+import pablo.tzeliks.service.SensorService;
 import pablo.tzeliks.view.helpers.InputHelper;
 import pablo.tzeliks.view.helpers.MenuHelper;
 import pablo.tzeliks.view.helpers.MessageHelper;
@@ -12,12 +11,12 @@ import java.util.Scanner;
 
 public class ConsoleController {
 
-    private final CrudService serviceCrud;
+    private final SensorService serviceSensor;
     private final AlertaService serviceAlerta;
     private final Scanner scanner;
 
-    public ConsoleController(CrudService service) {
-        this.serviceCrud = service;
+    public ConsoleController(SensorService service) {
+        this.serviceSensor = service;
         this.scanner = new Scanner(System.in);
     }
 

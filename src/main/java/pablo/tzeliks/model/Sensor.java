@@ -5,6 +5,7 @@ import pablo.tzeliks.model.enums.TipoSensor;
 
 import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Sensor {
@@ -24,16 +25,18 @@ public abstract class Sensor {
     }
 
     public void adicionarMedicao(Medicao medicao) {
-
         if (medicao == null) {
             throw new RuntimeException("Medição não existente.");
         }
 
         historicoMedicoes.add(medicao);
-
     };
 
     public abstract boolean verificarSensor(Medicao medicao);
+
+    public List<Medicao> getHistoricoMedicoes() {
+        return Collections.unmodifiableList(historicoMedicoes);
+    }
 
     public int getId() {
         return id;
