@@ -1,7 +1,6 @@
 package pablo.tzeliks.service;
 
 import org.mapstruct.factory.Mappers;
-import pablo.tzeliks.dto.MedicaoDTO;
 import pablo.tzeliks.dto.SensorDTO;
 import pablo.tzeliks.exceptions.ServiceException;
 import pablo.tzeliks.mapper.MedicaoMapper;
@@ -16,30 +15,20 @@ import pablo.tzeliks.service.contracts.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-// O nome ficou como CrudService porque se não iria ferir diretamente o princípio SRP, e pela complexidade do projeto decidi juntar o Crud para Sensores e Medições.
-
-public class CrudService implements SensoresInterface<SensorDTO>, MedicoesInterface<MedicaoDTO> {
+public class SensorService implements SensoresInterface<SensorDTO> {
 
     private final List<Sensor> listaSensores = new ArrayList<>();
     private int proximoId = 1;
-
-    private final SensorMapper mapperSensor;
-    private final MedicaoMapper mapperMedicao;
     private final SensorFactory factory;
 
-    public CrudService() {
+    private final SensorMapper mapperSensor;
+
+    public SensorService() {
         this.mapperSensor = Mappers.getMapper(SensorMapper.class);
-        this.mapperMedicao = Mappers.getMapper(MedicaoMapper.class);
         this.factory = new SensorFactory();
     }
 
-    public CrudService(SensorMapper mapperSensor, MedicaoMapper mapperMedicao, SensorFactory factory) {
-        this.mapperSensor = Objects.requireNonNull(mapperSensor);
-        this.mapperMedicao = Objects.requireNonNull(mapperMedicao);
-        this.factory = Objects.requireNonNull(factory);
-    }
-
-    // ---------- CRUD Sensor baseado em DTOs ----------
+    // ---------- CRUD Sensor baseado em DTOs (Métodos Adicionais, achar por ID e Código e Remoção via ID ou Código) ----------
 
     @Override
     public synchronized void cadastrarSensor(SensorDTO dto) {
@@ -47,11 +36,12 @@ public class CrudService implements SensoresInterface<SensorDTO>, MedicoesInterf
 
         // Factory cria a entidade concreta a partir do DTO
         Sensor sensor = SensorFactory.fromDTO(dto);
+
         if (sensor == null) {
             throw new ServiceException("Erro ao criar sensor a partir do DTO.");
         }
 
-        validarSensor(sensor);
+        validarSensor(sensor); // Validações Aplicadas a entidade Sensor
 
         // Criação de ID quando necessário para os Equipamentos
         if (sensor.getId() <= 0) {
@@ -73,7 +63,7 @@ public class CrudService implements SensoresInterface<SensorDTO>, MedicoesInterf
 
     @Override
     public List<SensorDTO> listarSensores() {
-        if (listaSensores.isEmpty()) throw new ServiceException("Lista vazia.");
+        if (listaSensores.isEmpty()) throw new ServiceException("Nenhum sensor foi encontrado.");
         return listaSensores.stream().map(this::toDto).collect(Collectors.toList());
     }
 
@@ -102,10 +92,6 @@ public class CrudService implements SensoresInterface<SensorDTO>, MedicoesInterf
         if (s == null) throw new ServiceException("Sensor não encontrado para id: " + id);
         listaSensores.remove(s);
     }
-
-    // ---------- Métodos para Medições ----------
-
-
 
     // ---------- Helpers internos (entidades) ----------
 

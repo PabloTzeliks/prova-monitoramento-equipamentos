@@ -13,6 +13,11 @@ public class SensorVibracao extends Sensor {
     }
 
     @Override
+    public boolean verificarSensor(Medicao medicao) {
+        return medicao.getValor() != 60.0;
+    }
+
+    @Override
     public String toString() {
 
         return String.format("ID: " + getId()

@@ -3,6 +3,7 @@ package pablo.tzeliks.model;
 import pablo.tzeliks.model.domain.Codigo;
 import pablo.tzeliks.model.enums.TipoSensor;
 
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public abstract class Sensor {
         historicoMedicoes.add(medicao);
 
     };
+
+    public abstract boolean verificarSensor(Medicao medicao);
 
     public int getId() {
         return id;
