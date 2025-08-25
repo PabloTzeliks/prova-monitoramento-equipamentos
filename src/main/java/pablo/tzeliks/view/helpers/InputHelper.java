@@ -1,5 +1,6 @@
 package pablo.tzeliks.view.helpers;
 
+import pablo.tzeliks.dto.SensorDTO;
 import pablo.tzeliks.model.enums.TipoSensor;
 
 import java.util.Scanner;
@@ -65,8 +66,29 @@ public class InputHelper {
                 MessageHelper.erro("Erro ao inserir o Tipo de Sensor, observe: " + e.getMessage());
             }
         }
-
-
-
     }
+
+    public static boolean confirmarExclusao(Scanner scanner, SensorDTO dto) {
+
+        MenuHelper.imprimirConfirmacaoRemocao();
+
+        SensorPrinter.imprimirSensor(dto);
+
+        System.out.println("\n1- Confirmar Remoção" +
+                "\n0- Cancelar");
+
+        String input = scanner.nextLine();
+
+        try {
+            if (input.equals("1")) {
+                return true;
+            } else if (input.equals("0")) {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            MessageHelper.erro("Valor inválido, tente novamente.");
+        }
+        return false;
+    }
+
 }

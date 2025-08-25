@@ -57,4 +57,12 @@ public class MonitoramentoService {
         alertaService.listarSensoresCriticos(sensorService);
     }
 
+    public SensorDTO acharSensorPorCodigo(Codigo codigo) {
+        return sensorService.acharPorCodigo(codigo);
+    }
+
+    public SensorDTO acharSensorPorId(int id) {
+        return sensorService.acharPorId(id);
+    }
+
 }

@@ -14,7 +14,7 @@ import pablo.tzeliks.service.contracts.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SensorService implements SensoresInterface<SensorDTO> {
+public class SensorService implements SensorInterface<SensorDTO> {
 
     private final List<Sensor> listaSensores = new ArrayList<>();
     private int proximoId = 1;
@@ -67,15 +67,15 @@ public class SensorService implements SensoresInterface<SensorDTO> {
     }
 
     @Override
-    public Sensor acharPorCodigo(Codigo codigo) {
+    public SensorDTO acharPorCodigo(Codigo codigo) {
         Sensor s = acharPorCodigoEntidade(codigo);
-        return s;
+        return s == null ? null : toDto(s);
     }
 
     @Override
-    public Sensor acharPorId(int id) {
+    public SensorDTO acharPorId(int id) {
         Sensor s = acharPorIdEntidade(id);
-        return s;
+        return s == null ? null : toDto(s);
 
     }
     @Override
@@ -94,12 +94,12 @@ public class SensorService implements SensoresInterface<SensorDTO> {
 
     // ---------- Helpers internos (entidades) ----------
 
-    private Sensor acharPorCodigoEntidade(Codigo codigo) {
+    protected Sensor acharPorCodigoEntidade(Codigo codigo) {
         if (codigo == null) return null;
         return listaSensores.stream().filter(e -> codigo.equals(e.getCodigo())).findFirst().orElse(null);
     }
 
-    private Sensor acharPorIdEntidade(int id) {
+    protected Sensor acharPorIdEntidade(int id) {
         if (id <= 0) return null;
         return listaSensores.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
     }

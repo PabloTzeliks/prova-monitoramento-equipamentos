@@ -26,7 +26,7 @@ public class AlertaService implements AlertaInterface {
         System.out.println();
 
         for (SensorDTO dto : todosOsSensores) {
-            Sensor sensor = sensorService.acharPorCodigo(dto.codigo());
+            Sensor sensor = sensorService.acharPorCodigoEntidade(dto.codigo());
             long quantidadeAlertas = contarAlertasPorSensor(sensor);
 
             System.out.println("Sensor " + dto.codigo() + " (" + dto.tipo() + ") – " +

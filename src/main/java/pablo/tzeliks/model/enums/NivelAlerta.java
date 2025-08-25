@@ -5,7 +5,7 @@ package pablo.tzeliks.model.enums;
 public enum NivelAlerta {
 
 //    ALERTA_ATENCAO("Atenção"),
-    ALERTA_CRITICO("Critico");
+    ALERTA_CRITICO("Crítico");
 
     String nome;
 

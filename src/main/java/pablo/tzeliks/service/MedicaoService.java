@@ -2,7 +2,6 @@ package pablo.tzeliks.service;
 
 import pablo.tzeliks.dto.MedicaoCreateDTO;
 import pablo.tzeliks.dto.MedicaoDTO;
-import pablo.tzeliks.dto.SensorDTO;
 import pablo.tzeliks.exceptions.ServiceException;
 import pablo.tzeliks.model.Alerta;
 import pablo.tzeliks.model.Medicao;
@@ -31,7 +30,7 @@ public class MedicaoService implements MedicaoInterface<MedicaoCreateDTO> {
             throw new ServiceException("Dados da Medição inválidos.");
         }
 
-        Sensor sensor = sensorService.acharPorCodigo(createDTO.codigo());
+        Sensor sensor = sensorService.acharPorCodigoEntidade(createDTO.codigo());
         if (sensor == null) {
             throw new ServiceException("Sensor não encontrado: " + createDTO.codigo());
         }
@@ -61,7 +60,7 @@ public class MedicaoService implements MedicaoInterface<MedicaoCreateDTO> {
     public void exibirHistoricoMedicoes(String codigoString) {
 
         Codigo codigo = new Codigo(codigoString);
-        Sensor sensor = sensorService.acharPorCodigo(codigo);
+        Sensor sensor = sensorService.acharPorCodigoEntidade(codigo);
 
         if (sensor == null) {
             throw new ServiceException("Sensor não encontrado: " + codigo);

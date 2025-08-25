@@ -38,14 +38,14 @@ public class CadastroSensorView {
             SensorDTO dto = new SensorDTO(0, codigo, nomeEquipamento, tipo);
             service.cadastrarSensor(dto);
 
-            MessageHelper.sucesso("\nSensor cadastrado com sucesso!");
+            MessageHelper.sucesso("Sensor cadastrado com sucesso!");
 
             if (tipo == TipoSensor.SENSOR_TEMPERATURA) {
 
-                System.out.println("\nTipo: " + tipo.name() + " | Limite de alerta: 80 Cº");
+                System.out.println("\nTipo: " + tipo.getNome() + " | Limite de alerta: 80 Cº");
             } else if (tipo == TipoSensor.SENSOR_VIBRACAO){
 
-                System.out.println("\nTipo: " + tipo.name() + " | Limite de alerta: 60 Hz");
+                System.out.println("\nTipo: " + tipo.getNome() + " | Limite de alerta: 60 Hz");
             }
 
         } catch (Exception e) {
