@@ -36,4 +36,32 @@ public class MenuHelper {
         System.out.println();
     }
 
+    public static void imprimirMenuListagemSensores() {
+        System.out.println("===============================");
+        System.out.println("       LISTAGEM SENSORES       ");
+        System.out.println("===============================");
+        System.out.println();
+    }
+
+    public static void imprimirMenuRegistroMedicao() {
+        System.out.println("===============================");
+        System.out.println("      REGISTRO DE MEDIÇÃO      ");
+        System.out.println("===============================");
+        System.out.println();
+    }
+
+    public static void imprimirMenuHistoricoMedicoes() {
+        System.out.println("===============================");
+        System.out.println("     HISTÓRICO DE MEDIÇÕES     ");
+        System.out.println("===============================");
+        System.out.println();
+    }
+
+    public static void imprimirMenuListagemSensoresCriticos() {
+        System.out.println("===============================");
+        System.out.println("   LISTAGEM SENSORES CRÍTICOS  ");
+        System.out.println("===============================");
+        System.out.println();
+    }
+
 }
