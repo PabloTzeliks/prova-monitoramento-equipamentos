@@ -34,9 +34,9 @@ public class ConsoleController {
                     case 2:
                         RemocaoSensorView.executar(scanner, service);
                         break;
-//                    case 3:
-//                        ListarSensoresView.executar(scanner, serviceFacade);
-//                        break;
+                    case 3:
+                        ListarSensorView.executar(scanner, service);
+                        break;
 //                    case 4:
 //                        RegistrarMedicaoView.executar(scanner, serviceFacade);
 //                        break;
