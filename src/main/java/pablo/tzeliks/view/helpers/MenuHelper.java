@@ -57,6 +57,13 @@ public class MenuHelper {
         System.out.println();
     }
 
+    public static void imprimirMenuVerificarAlertas() {
+        System.out.println("===============================");
+        System.out.println("       VERIFICAR ALERTAS       ");
+        System.out.println("===============================");
+        System.out.println();
+    }
+
     public static void imprimirMenuListagemSensoresCriticos() {
         System.out.println("===============================");
         System.out.println("   LISTAGEM SENSORES CRÍTICOS  ");
