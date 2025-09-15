@@ -40,9 +40,9 @@ public class ConsoleController {
                     case 4:
                         RegistroMedicaoView.executar(scanner, service);
                         break;
-//                    case 5:
-//                        HistoricoMedicoesView.executar(scanner, serviceFacade);
-//                        break;
+                    case 5:
+                        HistoricoMedicaoView.executar(scanner, service);
+                        break;
 //                    case 6:
 //                        VerificarAlertasView.executar(scanner, serviceFacade);
 //                        break;

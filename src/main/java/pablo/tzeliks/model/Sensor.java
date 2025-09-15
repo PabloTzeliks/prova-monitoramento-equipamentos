@@ -16,14 +16,6 @@ public abstract class Sensor {
     private TipoSensor tipo;
     private List<Medicao> historicoMedicoes = new ArrayList<>();
 
-    public Sensor(int id, Codigo codigo, String nomeEquipamento, TipoSensor tipo, List<Medicao> historicoMedicoes) {
-        this.id = id;
-        this.codigo = codigo;
-        this.nomeEquipamento = nomeEquipamento;
-        this.tipo = tipo;
-        this.historicoMedicoes = historicoMedicoes;
-    }
-
     public void adicionarMedicao(Medicao medicao) {
         if (medicao == null) {
             throw new RuntimeException("Medição não existente.");
@@ -31,6 +23,14 @@ public abstract class Sensor {
 
         historicoMedicoes.add(medicao);
     };
+
+    public Sensor(int id, Codigo codigo, String nomeEquipamento, TipoSensor tipo, List<Medicao> historicoMedicoes) {
+        this.id = id;
+        this.codigo = codigo;
+        this.nomeEquipamento = nomeEquipamento;
+        this.tipo = tipo;
+        this.historicoMedicoes = (historicoMedicoes != null) ? historicoMedicoes : new ArrayList<>();
+    }
 
     public abstract boolean verificarSensor(Medicao medicao);
 

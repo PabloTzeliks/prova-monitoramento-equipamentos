@@ -51,7 +51,10 @@ public class MedicaoService implements MedicaoInterface<MedicaoCreateDTO> {
             System.out.println("✅ Medição registrada com sucesso!");
         }
 
+        sensor.adicionarMedicao(medicao); // Adicionar medição ao histórico do sensor
+
         // 8. Retornar DTO completo com dados gerados pelo sistema
+
         return new MedicaoDTO(medicao.getId(), createDTO.valor(), createDTO.codigo(), agora);
 
     }
